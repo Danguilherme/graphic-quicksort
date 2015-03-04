@@ -102,8 +102,9 @@ body {
   overflow: hidden;
 }
 
-.root div:empty {
-  display: none;
+.root div:empty::before {
+  content: ' ';
+  display: inline-block;
 }
 
 .root .collection,
