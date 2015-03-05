@@ -90,16 +90,19 @@ body {
 
 /* ======================================================= */
 #drawing-root {
-  width: 100%;
   cursor: default;
   text-align: center;
+  white-space: nowrap;
+  overflow-x: auto;
+  background-color: #eee;
+  min-width: 100%;
 }
 
 .root div {
-  width: 50%;
   display: inline-block;
   vertical-align: top;
-  overflow: hidden;
+  position: relative;
+  min-width: 1em;
 }
 
 .root div:empty::before {
@@ -111,7 +114,10 @@ body {
 .root .collection-result {
   display: block;
   width: 100%;
+  line-height: 2.5em;
+  padding: 0 1.5em;
 }
+
 
 .root .left:not(:empty) {
   background: #ccf;
@@ -119,4 +125,24 @@ body {
 
 .root .right:not(:empty) {
   background: #fcc;
+}
+
+span.pivot {
+  position: absolute;
+  background-color: #fff;
+  display: inline;
+  border-radius: 50%;
+  width: 2em;
+  line-height: 2em;
+  top: 0;
+  border: 1px solid #888;
+  margin-top: 0.20em;
+}
+
+.left > span.pivot {
+  right: -1em;
+}
+
+.right > span.pivot {
+  left: -1em;
 }

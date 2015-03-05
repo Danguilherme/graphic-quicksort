@@ -20,60 +20,6 @@ function Node(collection) {
   this.pivot = null;
 }
 
-function Path(side, array, path, result) {
-  this.right = null;
-  this.rightArr = [];
-  this.left = null;
-  this.leftArr = null;
-  this.result = [];
-
-  if (!side) return;
-
-  if (side instanceof Path) {
-    this.right = left.right;
-    this.left = left.left;
-    this.result = left.result;
-  } else {
-    switch (side.toLowerCase()) {
-      case 'left':
-        this.left = path;
-        this.leftArr = array;
-        break;
-      case 'right':
-        this.right = path;
-        this.rightArr = array;
-        break;
-    }
-  }
-
-  if (result)
-    this.result = result;
-}
-
-function quicksortMetadata2(a, path) {
-  console.log('quicksort', a);
-
-  path = path || new Path();
-  if (a.length == 0) return [];
-
-  var left = [], right = [], pivot = a[0];
-
-  for (var i = 1; i < a.length; i++) {
-      a[i] < pivot ? left.push(a[i]) : right.push(a[i]);
-  }
-
-  console.group('quicksort');
-  console.log('left', left);
-  console.log('right', right);
-  console.groupEnd();
-
-
-  path.result = quicksort(left).concat(pivot, quicksort(right));
-  path.left = new Path('left', left, quicksortMetadata(left));
-  path.right = new Path('right', right, quicksortMetadata(right));
-  return path;
-}
-
 function quicksortMetadata(a, path) {
   if (a.length == 0) return [];
 
@@ -105,35 +51,34 @@ $(function() {
 
 
     function getText(data) {
-    if (!!data && !!data.collection)
-      return data.collection.length > 0 ?
-        ('<span class="collection">' + data.collection + '</span>') : '';
-    else
-      return '';
+      if (!!data && !!data.collection)
+        return data.collection.length > 0 ?
+          ('<span class="collection">' + data.collection.join(', ') + '</span>') : '';
+      else
+        return '';
     }
 
-    function drawQuicksortTree(root) {
+    function drawQuicksortTree(root, parent) {
       if (root.datum() instanceof Array)
         return;
 
-      root.selectAll('div.node.left')
-          .data([root.datum().left])
+      if (parent) {
+        root.append('span')
+          .attr('class', 'pivot')
+          .attr('title', 'Pivot')
+          .text(parent.datum().pivot);
+      }
+
+      root.selectAll('div.node')
+          .data([root.datum().left, root.datum().right])
         .enter().append('div')
           .attr('class', 'node')
-          .attr('class', 'left')
+          .attr('class', function(d, i) {
+            return i == 0 ? 'left' : 'right';
+          })
           .style('left', function(d) { return d.collection ? d.collection[0] : 0; })
           .html(getText)
-          .each(function(d) { drawQuicksortTree(d3.select(this)); });
-
-      root.selectAll('div.node.right')
-          .data([root.datum().right])
-        .enter().append('div')
-          .attr('class', 'node')
-          .attr('class', 'right')
-          // .append('span')
-          //   .attr('class', 'collection')
-          .html(getText)
-          .each(function(d) { drawQuicksortTree(d3.select(this)); });
+          .each(function(d) { drawQuicksortTree(d3.select(this), root); });
     }
 
     var root = d3.select('#drawing-root').selectAll('div.root')
@@ -145,11 +90,20 @@ $(function() {
     drawQuicksortTree(root);
 
     root.append('span')
-      .attr('class', 'collection-result')
-      .text(sorted.toString());
+      .attr('class', 'collection collection-result')
+      .text(sorted.join(', '));
   }
 
   $('#collection-input').change(function() {
-    draw($(this).val());
+    var value = $(this).val();
+    var array;
+    if (value.search(',') != -1) {
+      array = value.split(',');
+      for (var i = 0; i < array.length; i++) {
+        array[i] = parseFloat(array[i]);
+      }
+    } else
+      array = value.split('');
+    draw(array);
   })
 });
