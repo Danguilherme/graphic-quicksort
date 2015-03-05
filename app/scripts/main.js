@@ -81,6 +81,8 @@ $(function() {
           .each(function(d) { drawQuicksortTree(d3.select(this), root); });
     }
 
+    $('#drawing-root').children().remove();
+
     var root = d3.select('#drawing-root').selectAll('div.root')
         .data([metadata])
       .enter().append("div")
@@ -94,16 +96,30 @@ $(function() {
       .text(sorted.join(', '));
   }
 
-  $('#collection-input').change(function() {
-    var value = $(this).val();
+  function onCollectionInput(input) {
+    var value = $(input).val();
     var array;
+
     if (value.search(',') != -1) {
       array = value.split(',');
       for (var i = 0; i < array.length; i++) {
         array[i] = parseFloat(array[i]);
       }
-    } else
+    } else {
       array = value.split('');
+    }
+
     draw(array);
-  })
+  }
+
+  $('#collection-input')
+    .tokenfield()
+    .change(function() {
+      onCollectionInput(this);
+    })
+    .keypress(function(ev) {
+      console.log(ev, ev.code);
+    });
+
+  onCollectionInput($('#collection-input'));
 });

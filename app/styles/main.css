@@ -92,10 +92,13 @@ body {
 #drawing-root {
   cursor: default;
   text-align: center;
+  background-color: #eee;
+
+  margin-top: 2em;
   white-space: nowrap;
   overflow-x: auto;
-  background-color: #eee;
-  min-width: 100%;
+
+  border-radius: 1em;
 }
 
 .root div {
