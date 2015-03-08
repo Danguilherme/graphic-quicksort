@@ -1,5 +1,4 @@
 "use strict"
-console.log('\'Allo \'Allo!');
 
 function quicksort(a) {
   if (a.length == 0) return [];
@@ -170,7 +169,7 @@ $(function() {
       .remove();
 
     svg.attr("height",
-      d3.max(nodes, function(d) { return d.depth; }) * 140);
+      d3.max(nodes, function(d) { return d.depth; }) * 150);
   }
 
   function draw(collection) {
@@ -186,6 +185,12 @@ $(function() {
     update(treeRoot);
   }
 
+  $('#collection-input')
+    .change(function() {
+      onCollectionInput(this);
+    })
+    .change();
+
   function onCollectionInput(input) {
     var value = $(input).val();
     var array;
@@ -197,7 +202,7 @@ $(function() {
       }
     } else {
       array = value.split('');
+    }
     draw(array);
-  })
-  .change();
+  };
 });

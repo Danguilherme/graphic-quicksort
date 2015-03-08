@@ -92,8 +92,6 @@ body {
 #drawing-root {
   cursor: default;
   text-align: center;
-  background-color: #eee;
-
   margin-top: 2em;
   white-space: nowrap;
   overflow-x: auto;
