@@ -89,12 +89,33 @@ body {
 }
 
 /* ======================================================= */
+
+ .node ellipse {
+   fill: #fff;
+   stroke: steelblue;
+   stroke-width: 3px;
+ }
+
+  .node text {
+  }
+
+ .link {
+   fill: none;
+   stroke: #ccc;
+   stroke-width: 2px;
+ }
+
+ .node .pivot circle {
+   fill: steelblue;
+   stroke: #fff;
+   stroke-width: 2px;
+ }
+
 #drawing-root {
   cursor: default;
   text-align: center;
   white-space: nowrap;
   overflow-x: auto;
-  background-color: #eee;
   min-width: 100%;
 }
 

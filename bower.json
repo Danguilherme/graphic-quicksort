@@ -3,6 +3,10 @@
   "private": true,
   "dependencies": {
     "bootstrap": "~3.2.0",
-    "d3": "~3.5.5"
+    "d3": "~3.5.5",
+    "bootstrap-tokenfield": "~0.12.1"
+  },
+  "resolutions": {
+    "bootstrap": "~3.2.0"
   }
 }
