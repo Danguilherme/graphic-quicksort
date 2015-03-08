@@ -189,7 +189,8 @@ $(function() {
     .change(function() {
       onCollectionInput(this);
     })
-    .change();
+    .change()
+    .tokenfield();
 
   function onCollectionInput(input) {
     var value = $(input).val();
