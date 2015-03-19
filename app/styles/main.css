@@ -43,104 +43,109 @@ body {
   margin: 30px 0;
 }
 
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
 /* ======================================================= */
-#original-collection,
-#sorted-collection {
-  position: relative;
-
-  background: #fafafa;
-
-  text-align: center;
-  font-size: 1.2em;
-  line-height: 2em;
-}
-
-#original-collection {
-  border-radius: 0 0 2em 2em;
-}
-
-#sorted-collection {
-  border-radius: 2em 2em 0 0;
-}
-
-#original-collection::after,
-#sorted-collection::before {
-  content: ' ';
-  display: block;
-
-  position: absolute;
-  left: 50%;
-  margin-left: -25px;
-
-  /* arrow */
-  width: 0;
-  border: 50px solid transparent;
-}
-
-#original-collection::after {
-  top: 100%;
-  border-top-color: #fafafa;
-}
-
-#sorted-collection::before {
-  bottom: 100%;
-  border-bottom-color: #fafafa;
-}
-
-.sort-info {
-  margin-top: 1em;
-}
-
-.sort-info table {
-  width: auto;
-  cursor: default;
-}
-
-.sort-info table thead td {
-  text-align: center;
-}
-
-.sort-info table td:first-child {
-  font-weight: bold;
-}
-
-#drawing-target {
+#drawing-root {
   cursor: default;
   text-align: center;
+  background-color: #eee;
+
   margin-top: 2em;
   white-space: nowrap;
   overflow-x: auto;
-  min-width: 100%;
+
+  border-radius: 1em;
 }
 
-.node ellipse {
-  fill: #fff;
-  stroke: #4682B4;
-  stroke-width: 3px;
+.root div {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  min-width: 1em;
 }
 
-.node text {
-  stroke: none;
+.root div:empty::before {
+  content: ' ';
+  display: inline-block;
 }
 
-.node .pivot rect {
-  fill: #edf3f8;
-  stroke: steelblue;
-  stroke-width: 2px;
+.root .collection,
+.root .collection-result {
+  display: block;
+  width: 100%;
+  line-height: 2.5em;
+  padding: 0 1.5em;
 }
 
-.node.no-child .pivot {
-  display: none;
+
+.root .left:not(:empty) {
+  background: #ccf;
 }
 
-.link path,
-.link line {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 2px;
+.root .right:not(:empty) {
+  background: #fcc;
 }
 
-.link text {
-  font-size: 2em;
-  font-weight: bold;
+span.pivot {
+  position: absolute;
+  background-color: #fff;
+  display: inline;
+  border-radius: 50%;
+  width: 2em;
+  line-height: 2em;
+  top: 0;
+  border: 1px solid #888;
+  margin-top: 0.20em;
+}
+
+.left > span.pivot {
+  right: -1em;
+}
+
+.right > span.pivot {
+  left: -1em;
 }
