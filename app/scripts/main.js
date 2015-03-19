@@ -37,7 +37,7 @@ function quicksortMetadata(config, a, path) {
 
   path = path || new Node(a);
   path.pivot = pivot;
-  
+
   for (var i = 0; i < a.length; i++) {
     if (i === index) continue;
     a[i] < pivot ? left.push(a[i]) : right.push(a[i]);
@@ -154,13 +154,10 @@ $(function() {
   $('[name="pivot-position"]:radio')
     .change(onCollectionInput);
 
-
   $('#collection-input')
-    .tokenfield()
-    .change(function() {
-      onCollectionInput(this);
-    })
-    .change();
+    .change(onCollectionInput)
+    .change()
+    .tokenfield();
 
   onCollectionInput($('#collection-input'));
 });
